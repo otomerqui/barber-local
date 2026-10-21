@@ -1,30 +1,38 @@
 "use client";
 
-import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+//import Cal, { getCalApi } from "@calcom/embed-react";
+//import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { calUsername, services } from "@/lib/site";
 import { useBooking } from "./BookingProvider";
 
 const NAMESPACE = "booking";
+const CalEmbed = dynamic(() => import("./CalEmbed"), { ssr: false });
 
 export default function Booking() {
   const { slug, setSlug } = useBooking();
   const service = services.find((s) => s.slug === slug) ?? services[0];
 
+    const embedRef = useRef<HTMLDivElement>(null);
+  const [load, setLoad] = useState(false);
+
   useEffect(() => {
-    (async () => {
-      const cal = await getCalApi({ namespace: NAMESPACE });
-      cal("ui", {
-        theme: "dark",
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        cssVarsPerTheme: {
-          light: { "cal-brand": "#c9a84c" },
-          dark: { "cal-brand": "#c9a84c" },
-        },
-      });
-    })();
-  }, []);
+    const el = embedRef.current;
+    if (!el || load) return;
+    if (!("IntersectionObserver" in window)) return setLoad(true);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [load]);
 
   return (
     <section className="booking" id="booking" aria-labelledby="booking-title">
@@ -49,15 +57,8 @@ export default function Booking() {
           ))}
         </div>
 
-        <div className="booking__embed">
-          {/* key forces a fresh embed when the service changes */}
-          <Cal
-            key={service.calSlug}
-            namespace={NAMESPACE}
-            calLink={`${calUsername}/${service.calSlug}`}
-            style={{ width: "100%", height: "100%", overflow: "scroll" }}
-            config={{ layout: "month_view", theme: "dark" }}
-          />
+        <div className="booking__embed" ref={embedRef}>
+          {load && <CalEmbed key={service.calSlug} calLink={`${calUsername}/${service.calSlug}`} />}
         </div>
       </div>
     </section>

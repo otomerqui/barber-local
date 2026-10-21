@@ -610,7 +610,7 @@ button {
 
 .marquee__inner {
     display: inline-flex;
-    animation: marquee-scroll 22s linear infinite;
+    animation: marquee-scroll 60s linear infinite;
     will-change: transform;
 }
 
@@ -1732,6 +1732,8 @@ button {
     border: 1px solid var(--color-gold-subtle);
     min-height: 500px;
 }
+
+
 
 /* ── RESPONSIVE ───────────────────────────────────────────────── */
 @media (max-width: 1200px) {
