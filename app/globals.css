@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "./blade.css" layer(components);
+
+/*
+  Design tokens (ported from the WordPress theme's :root and theme.json).
+  Tailwind v4 generates utilities from these: bg-gold, text-gray-light, font-display, etc.
+*/
+@theme {
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c96a;
+  --color-gold-dark: #8a6a1f;
+  --color-gold-subtle: rgba(201, 168, 76, 0.15);
+  --color-black: #0a0a0a;
+  --color-dark-1: #111111;
+  --color-dark-2: #1a1a1a;
+  --color-dark-3: #222222;
+  --color-white: #ffffff;
+  --color-gray: #888888;
+  --color-gray-light: #bbbbbb;
+}
+
+@theme inline {
+  --font-display: var(--font-bebas), "Bebas Neue", sans-serif;
+  --font-serif: var(--font-playfair), "Playfair Display", serif;
+  --font-body: var(--font-dm-sans), "DM Sans", sans-serif;
+  --font-elegant: var(--font-cormorant), "Cormorant Garamond", serif;
+}
