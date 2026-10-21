@@ -36,7 +36,7 @@ export const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(
 )}&output=embed`;
 
 export const hero = {
-  image: unsplash("photo-1585747860715-2ba37e788b70", 1920),
+  image: "/img/barber-hero.webp",
   tag: "Barbería premium",
   line1: "EL ARTE",
   line2: "DEL",
@@ -65,9 +65,9 @@ export const about = {
   description:
     "Nacidos de la pasión por el oficio, desde 2012 marcamos la pauta en barbería de alta calidad. Combinamos técnicas tradicionales con un estilo moderno: cada cliente sale luciendo y sintiéndose de maravilla.",
   year: "2012",
-  imageMain: unsplash("photo-1503951914875-452162b0f3f1"),
+  imageMain: "/img/main-image.webp",
   imageMainAlt: "Barbero trabajando",
-  imageAccent: unsplash("photo-1621605815971-fbc98d665033", 500),
+  imageAccent: "/img/accent-image.webp",
   imageAccentAlt: "Herramientas de barbería",
   features: [
     { label: "Precisión", text: "Cada corte se realiza con una atención al detalle propia de un cirujano." },
